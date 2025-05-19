@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Browser Info Logger Devade",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Определяет браузер и отправляет информацию в Telegram с мобильных устройств.",
   "icons": {
     "128": "icon.png"

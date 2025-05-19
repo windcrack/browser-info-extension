@@ -4,12 +4,68 @@
         CHAT_ID: '425245591'
     }
     const styleConsole = 'color: tomato; background: #007acc; font-size: 24px; padding: 4px 8px; border-radius: 4px;';
-
+    const buttonStyle = `
+            background: tomato;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+         `;
+    const btnShowStyle = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M7 8L3 12L7 16" stroke="%23000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3Cpath d="M17 8L21 12L17 16" stroke="%23000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3Cpath d="M14 4L9.8589 19.4548" stroke="%23000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid black;
+            cursor: pointer;
+    `;
+    const btnHideStyle = `
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M9 6L15 12L9 18" stroke="%23000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid black;
+            cursor: pointer;
+    `;
+    const blockInfoStyle = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            z-index: 9999;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            font-size: 16px;
+            border-radius: 8px;
+            display: none;
+            flex-flow: column;
+            gap: 10px;
+            font-family: inherit;
+        `;
+    //display: flex;
     function logWindowSize() {
         console.log(
             `%cОкно просмотра: ${window.innerWidth} x ${window.innerHeight}`,
             styleConsole
         );
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight,
+        }
     }
 
     function detectBrowser() {
@@ -87,20 +143,7 @@
 
         const btn = document.createElement('button');
         btn.textContent = 'Отправить информацию в Telegram';
-        btn.style = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            background: tomato;
-            color: white;
-            border: none;
-            padding: 10px 14px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-         `;
+        btn.style = buttonStyle;
         btn.addEventListener('click', async () => {
             const browserInfo = detectBrowser();
             const message = `📱 Мобильное устройство зашло:\n🌐 Браузер: ${browserInfo.name} ${browserInfo.version}\n🧠 Движок: ${browserInfo.engine}\n📐 Размер окна: ${window.innerWidth}x${window.innerHeight}\n\n${browserInfo.userAgent}`;
@@ -109,7 +152,65 @@
             btn.disabled = true;
             btn.style.background = 'gray';
         });
-        document.body.appendChild(btn);
+
+        return btn
+    }
+
+    function createHideButton(){
+        const btn = document.createElement('button');
+        btn.style = btnHideStyle;
+        btn.addEventListener('click', async () => {
+            document.querySelector('.blockInfoClassDevade').style.display = 'none';
+        });
+
+        return btn
+    }
+
+    function addPanelInfo(){
+        const blockInfo = document.createElement('div');
+        // const styleTd = 'border: 1px solid black; border-radius: 10px; padding: 10px'
+        blockInfo.classList.add('blockInfoClassDevade');
+        blockInfo.style = blockInfoStyle;
+        const browserInfo = detectBrowser();
+        blockInfo.innerHTML = `
+            
+             <div style="color: #fff; 
+                         background: #007acc; 
+                         font-size: 24px; 
+                         padding: 4px 8px; 
+                         border-radius: 4px;">
+                Область видимости: ${logWindowSize().width} х ${logWindowSize().height}
+             </div>
+             <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>Браузер</td>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>Движок</td>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>Версия</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>${browserInfo.name}</td>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>${browserInfo.engine}</td>
+                        <td style='border: 1px solid black; border-radius: 10px; padding: 10px'>${browserInfo.version}</td>
+                    </tr>
+                </tbody>
+             </table>
+            `;
+        const theFirstChild = blockInfo.firstChild;
+        blockInfo.insertBefore(createHideButton(), theFirstChild);
+        blockInfo.append(createSendButton());
+        document.body.appendChild(blockInfo);
+    }
+
+    function createShoPanelBtn(){
+        const btnShow = document.createElement('button');
+        btnShow.style = btnShowStyle;
+        btnShow.addEventListener('click', () =>{
+            document.querySelector('.blockInfoClassDevade').style.display = 'flex';
+        })
+        document.body.appendChild(btnShow);
     }
 
     logWindowSize();
@@ -119,7 +220,8 @@
         window.matchMedia("(max-width: 768px)").matches;
 
     // if(isMobile){
-    createSendButton();
+    addPanelInfo();
+    createShoPanelBtn();
     // }
 
 })();
