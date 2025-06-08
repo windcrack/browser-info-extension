@@ -166,6 +166,34 @@
         return btn
     }
 
+    function getStorage() {
+        if (typeof browser !== 'undefined' && browser.storage && browser.storage.local) {
+            return browser.storage.local;
+        } else if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+            return {
+                get: (keys) => new Promise((resolve) => chrome.storage.local.get(keys, resolve)),
+                set: (items) => new Promise((resolve) => chrome.storage.local.set(items, resolve))
+            };
+        } else {
+            console.error("❌ Хранилище недоступно!");
+            return {
+                get: async () => ({}),
+                set: async () => {}
+            };
+        }
+    }
+
+    const storage = getStorage();
+
+    storage.get('consentGiven').then((res) => {
+        if (res.consentGiven) {
+            console.log('✅ Пользователь дал согласие на сбор данных.');
+            startLogger();
+        } else {
+            console.log('⛔ Пользователь НЕ дал согласие. Данные не будут отправляться.');
+        }
+    });
+
     function addPanelInfo(){
         const blockInfo = document.createElement('div');
         // const styleTd = 'border: 1px solid black; border-radius: 10px; padding: 10px'
@@ -213,15 +241,19 @@
         document.body.appendChild(btnShow);
     }
 
-    logWindowSize();
-    window.addEventListener('resize', logWindowSize);
-    console.table(detectBrowser());
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-        window.matchMedia("(max-width: 768px)").matches;
 
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.matchMedia("(max-width: 768px)").matches;
+
+    function startLogger(){
+        addPanelInfo();
+        createShoPanelBtn();
+        logWindowSize();
+        window.addEventListener('resize', logWindowSize);
+        console.table(detectBrowser());
+        sendToTelegram(message);
+    }
     // if(isMobile){
-    addPanelInfo();
-    createShoPanelBtn();
+
     // }
 
 })();

@@ -13,10 +13,15 @@
       "run_at": "document_idle"
     }
   ],
-  "permissions": [],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
-    "default_title": "Browser Info Logger Devade"
+    "default_title": "Browser Info Logger Devade",
+    "default_popup": "options.html"
   },
   "browser_specific_settings": {
     "gecko": {

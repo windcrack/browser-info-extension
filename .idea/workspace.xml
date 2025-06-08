@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14320bca-a6cb-4f0f-b023-02db6305722d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/options.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/options.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
@@ -17,6 +19,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -30,12 +33,12 @@
     &quot;assignee&quot;: &quot;windcrack&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/windcrack/browser-info-extension.git",
-    "accountId": "90c03b5e-0860-41f4-9885-73fa1e6176c3"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/windcrack/browser-info-extension.git&quot;,
+    &quot;accountId&quot;: &quot;90c03b5e-0860-41f4-9885-73fa1e6176c3&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -46,6 +49,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -75,6 +79,7 @@
       <updated>1747566932323</updated>
       <workItem from="1747566933589" duration="8294000" />
       <workItem from="1747676223946" duration="4374000" />
+      <workItem from="1749381206550" duration="4868000" />
     </task>
     <servers />
   </component>
